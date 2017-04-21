@@ -1,0 +1,115 @@
+#include <stdio.h>
+
+enum registers {            /*34 registradores*/
+    zero, at, v0, v1, a0, a1, a2, a3, t0, t1, t2, t3, t4, t5, t6, t7, s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, t8, t9, k0, k1, gp, sp, fp, ra
+}register_list;
+
+int REG_LIST[34], PC, HI, LO;
+
+void test_reg(){      /*inicializa valores de teste nos regisradores*/
+    int i;
+    
+    for (i=0;i<34;i++){
+        REG_LIST[i]=i*10;
+    }
+    PC=15;
+    HI=25;
+    LO=35;
+}
+
+
+    
+
+void dump_reg(char format){
+    
+    switch (format){
+            case 'd':
+                printf("$zero = %d\n", REG_LIST[zero]);
+                printf("$at   = %d\n", REG_LIST[at]);
+                printf("$v0   = %d\n", REG_LIST[v0]);
+                printf("$v1   = %d\n", REG_LIST[v1]);
+                printf("$a0   = %d\n", REG_LIST[a0]);
+                printf("$a1   = %d\n", REG_LIST[a1]);
+                printf("$a2   = %d\n", REG_LIST[a2]);
+                printf("$a3   = %d\n", REG_LIST[a3]);
+                printf("$t0   = %d\n", REG_LIST[t0]);
+                printf("$t1   = %d\n", REG_LIST[t1]);
+                printf("$t2   = %d\n", REG_LIST[t2]);
+                printf("$t3   = %d\n", REG_LIST[t3]);
+                printf("$t4   = %d\n", REG_LIST[t4]);
+                printf("$t5   = %d\n", REG_LIST[t5]);
+                printf("$t6   = %d\n", REG_LIST[t6]);
+                printf("$t7   = %d\n", REG_LIST[t7]);
+                printf("$s0   = %d\n", REG_LIST[s0]);
+                printf("$s1   = %d\n", REG_LIST[s1]);
+                printf("$s2   = %d\n", REG_LIST[s2]);
+                printf("$s3   = %d\n", REG_LIST[s3]);
+                printf("$s4   = %d\n", REG_LIST[s4]);
+                printf("$s5   = %d\n", REG_LIST[s5]);
+                printf("$s6   = %d\n", REG_LIST[s6]);
+                printf("$s7   = %d\n", REG_LIST[s7]);
+                printf("$t8   = %d\n", REG_LIST[t8]);
+                printf("$t9   = %d\n", REG_LIST[t9]);
+                printf("$k0   = %d\n", REG_LIST[k0]);
+                printf("$k1   = %d\n", REG_LIST[k1]);
+                printf("$gp   = %d\n", REG_LIST[gp]);
+                printf("$sp   = %d\n", REG_LIST[sp]);
+                printf("$fp   = %d\n", REG_LIST[fp]);
+                printf("$ra   = %d\n", REG_LIST[ra]);
+                printf("$PC   = %d\n", PC);
+                printf("$HI   = %d\n", HI);
+                printf("$LO   = %d\n", LO);
+                break;
+            case 'h':
+                printf("$zero = 0x%08x\n", REG_LIST[zero]);
+                printf("$at   = 0x%08x\n", REG_LIST[at]);
+                printf("$v0   = 0x%08x\n", REG_LIST[v0]);
+                printf("$v1   = 0x%08x\n", REG_LIST[v1]);
+                printf("$a0   = 0x%08x\n", REG_LIST[a0]);
+                printf("$a1   = 0x%08x\n", REG_LIST[a1]);
+                printf("$a2   = 0x%08x\n", REG_LIST[a2]);
+                printf("$a3   = 0x%08x\n", REG_LIST[a3]);
+                printf("$t0   = 0x%08x\n", REG_LIST[t0]);
+                printf("$t1   = 0x%08x\n", REG_LIST[t1]);
+                printf("$t2   = 0x%08x\n", REG_LIST[t2]);
+                printf("$t3   = 0x%08x\n", REG_LIST[t3]);
+                printf("$t4   = 0x%08x\n", REG_LIST[t4]);
+                printf("$t5   = 0x%08x\n", REG_LIST[t5]);
+                printf("$t6   = 0x%08x\n", REG_LIST[t6]);
+                printf("$t7   = 0x%08x\n", REG_LIST[t7]);
+                printf("$s0   = 0x%08x\n", REG_LIST[s0]);
+                printf("$s1   = 0x%08x\n", REG_LIST[s1]);
+                printf("$s2   = 0x%08x\n", REG_LIST[s2]);
+                printf("$s3   = 0x%08x\n", REG_LIST[s3]);
+                printf("$s4   = 0x%08x\n", REG_LIST[s4]);
+                printf("$s5   = 0x%08x\n", REG_LIST[s5]);
+                printf("$s6   = 0x%08x\n", REG_LIST[s6]);
+                printf("$s7   = 0x%08x\n", REG_LIST[s7]);
+                printf("$t8   = 0x%08x\n", REG_LIST[t8]);
+                printf("$t9   = 0x%08x\n", REG_LIST[t9]);
+                printf("$k0   = 0x%08x\n", REG_LIST[k0]);
+                printf("$k1   = 0x%08x\n", REG_LIST[k1]);
+                printf("$gp   = 0x%08x\n", REG_LIST[gp]);
+                printf("$sp   = 0x%08x\n", REG_LIST[sp]);
+                printf("$fp   = 0x%08x\n", REG_LIST[fp]);
+                printf("$ra   = 0x%08x\n", REG_LIST[ra]);
+                printf("$PC   = 0x%08x\n", PC);
+                printf("$HI   = 0x%08x\n", HI);
+                printf("$LO   = 0x%08x\n", LO);
+                break;
+            default:
+                printf("Opcao invalida\n");
+                break;
+    }               
+}
+
+int main () {
+    char format;
+    
+    test_reg();
+    printf("Decimal ou Hexadecimal (D-H):\n");
+    scanf("%c", &format);
+    dump_reg(format);
+    
+    return 0;
+}
