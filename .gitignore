@@ -1,6 +1,8 @@
 # Prerequisites
 *.d
 
+/oact2
+
 # Object files
 *.o
 *.ko
